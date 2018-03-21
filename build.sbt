@@ -2,15 +2,13 @@ name := "ist440w"
  
 version := "1.0" 
       
-lazy val `ist440w` = (project in file(".")).enablePlugins(PlayJava)
+lazy val `ist440w` = (project in file(".")).enablePlugins(PlayJava, PlayEbean)
 
 resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
       
 scalaVersion := "2.11.11"
 
-libraryDependencies ++= Seq( javaJdbc , cache , javaWs )
+libraryDependencies ++= Seq( javaJdbc , javaWs , guice)
 
 unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )
 
-routesGenerator := StaticRoutesGenerator
-      
