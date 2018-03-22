@@ -1,0 +1,54 @@
+footer {
+    position: relative;
+    top: 75px;
+    bottom: 0;
+    padding: 20px 0 30px 0;
+    width: 100%;
+    height: auto;
+    background-color: #f5f5f5;
+}
+
+.banner {
+    margin: 0 0 50px 0;
+}
+
+.login {
+    text-align: center;
+    width: 100%;
+    max-width: 330px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.signup {
+    text-align: center;
+    width: 100%;
+    max-width: 550px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+input {
+    margin: 20px 0 20px 0;
+}
+
+.form-check {
+    text-align: left;
+}
+
+.results{
+    text-align: center;
+    top: 25px;
+}
+
+.filter-bar {
+    top: 25px;
+    background-color: #f5f5f5;
+}
+
+.filter-category {
+    border-style: solid;
+    border-color: #6e6e6e;
+    border-width: 1px 0 1px 0;
+    margin: 10px 2px 10px 2px;
+}
