@@ -10,7 +10,7 @@ GET     /login                      controllers.UserController.getLogin()
 GET     /signup                     controllers.UserController.getSignup()
 
 # Search
-GET     /search                     controllers.SearchController.getSearch()
+POST    /search                     controllers.SearchController.search()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
