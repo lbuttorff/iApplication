@@ -38,11 +38,9 @@ input {
 
 .results{
     text-align: center;
-    top: 25px;
 }
 
 .filter-bar {
-    top: 25px;
     background-color: #f5f5f5;
 }
 
