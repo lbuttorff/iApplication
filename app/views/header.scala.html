@@ -17,7 +17,29 @@
         <form class="form-inline" method="post" action="/search">
             @import helper._
             @CSRF.formField
-            <input name="term" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <select name="campus" id="campusSelect" class="form-control mr-1">
+                <option selected disabled>Select PSU campus</option>
+                <option>Abington</option>
+                <option>Altoona</option>
+                <option>Beaver</option>
+                <option>Behrend</option>
+                <option>Berks</option>
+                <option>Brandywine</option>
+                <option>DuBois</option>
+                <option>Fayette</option>
+                <option>Greater Allegheny</option>
+                <option>Harrisburg</option>
+                <option>Hazleton</option>
+                <option>Lehigh Valley</option>
+                <option>Mont Alto</option>
+                <option>New Kensington</option>
+                <option>Schuylkill</option>
+                <option>Shenango</option>
+                <option>University Park</option>
+                <option>Wilkes-Barre</option>
+                <option>Worthington Scranton</option>
+                <option>York</option>
+            </select>
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </nav>

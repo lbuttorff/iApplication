@@ -18,7 +18,7 @@ public class SearchController extends Controller {
 
     @RequireCSRFCheck
     public Result search(){
-        String term = formFactory.form().bindFromRequest().get("term");
+        String term = formFactory.form().bindFromRequest().get("campus");
         return ok(search.render(term));
     }
 }
