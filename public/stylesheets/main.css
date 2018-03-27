@@ -44,6 +44,12 @@ input {
     background-color: #f5f5f5;
 }
 
+.filter-bar li {
+    height: 200px;
+    overflow-y: hidden;
+    overflow-y: scroll;
+}
+
 .filter-category {
     border-style: solid;
     border-color: #6e6e6e;

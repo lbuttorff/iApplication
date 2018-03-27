@@ -15,24 +15,130 @@
 
         <div class="container">
             <div class="row no-gutters">
-                <div class="col-3 filter-bar mt-4 p-3">
-                    <h4>Filter</h4>
+                <div class="col-lg-3 filter-bar mt-4 p-3">
+                    <h4 class="mb-4">Filter</h4>
                     <form>
-                        <h6>Department</h6>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="departmentCheck">
-                            <label for="deparmentCheck">Get from DB</label>
-                        </div>
-                        <h6>Service Offered</h6>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="serviceCheck">
-                            <label for="serviceCheck">Get from DB</label>
-                        </div>
-                        <h6>Experience Level</h6>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="experienceCheck">
-                            <label for="experienceCheck">Get from DB</label>
-                        </div>
+                        <ul class="list-group">
+                            <!-- Department Options -->
+                            <h6>Department</h6>
+                            <li class="list-group-item mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="agSciences">
+                                    <label for="agSciences">Agricultural Sciences</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="artsAndArch">
+                                    <label for="artsAndArch">Arts and Architecture</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="business">
+                                    <label for="business">Smeal College of Business</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="communications">
+                                    <label for="communications">College of Communications</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="earthAndMineralSciences">
+                                    <label for="earthAndMineralSciences">Earth and Mineral Sciences</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="education">
+                                    <label for="education">Education</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="engineering">
+                                    <label for="engineering">Engineering</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="hhd">
+                                    <label for="hhd">Health and Human Development</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="ist">
+                                    <label for="ist">Information Sciences and Technology</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="dickinsonLaw">
+                                    <label for="dickinsonLaw">Dickinson Law</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="psuLaw">
+                                    <label for="psuLaw">Penn State Law</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="liberalArts">
+                                    <label for="liberalArts">The Liberal Arts</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="medicine">
+                                    <label for="medicine">College of Medicine</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="nursing">
+                                    <label for="nursing">College of Nursing</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="science">
+                                    <label for="science">Eberly College of Science</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="honors">
+                                    <label for="honors">Schreyer Honors College</label>
+                                </div>
+                            </li>
+
+                            <!-- Service Options -->
+                            <h6>Service Offered</h6>
+                            <li class="list-group-item mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="undergradApp">
+                                    <label for="undergradApp">Undergraduate Application Help</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="gradApp">
+                                    <label for="gradApp">Graduate Application Help</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="essayEdit">
+                                    <label for="essayEdi">Essay Editing</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="interviewPrep">
+                                    <label for="interviewPrep">Interview Prep</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="dormAptHelp">
+                                    <label for="dormAptHelp">Help Finding Dorms & Apartments</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="collegeVisit">
+                                    <label for="collegeVisit">College Visits</label>
+                                </div>
+                            </li>
+
+                            <!-- Experience Level Options -->
+                            <h6>Experience Level</h6>
+                            <li class="list-group-item mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="undergrad">
+                                    <label for="undergrad">Undergraduate Student</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="masters">
+                                    <label for="masters">Masters Student</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="phd">
+                                    <label for="phd">Ph.D. Candidate</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="faculty">
+                                    <label for="faculty">PSU Faculty Member</label>
+                                </div>
+                            </li>
+                        </ul>
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Update results</button>
                     </form>
                 </div>
                 <div class="col-9 results mt-4">
