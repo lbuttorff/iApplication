@@ -11,7 +11,17 @@ public class UserController extends Controller {
         return ok(login.render());
     }
 
-    public Result getSignup(){
+    public Result getSignUp(){
         return ok(signup.render());
+    }
+
+    public Result login(){
+        //TODO: code the login functionality
+        return ok();
+    }
+
+    public Result signUp(){
+        //TODO: code the sign up functionality
+        return ok();
     }
 }

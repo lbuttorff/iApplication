@@ -8,7 +8,7 @@ resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
       
 scalaVersion := "2.11.11"
 
-libraryDependencies ++= Seq( javaJdbc , javaWs , guice)
+libraryDependencies ++= Seq( javaJdbc , javaWs , guice, "org.mindrot" % "jbcrypt" % "0.3m")
 
 unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )
 

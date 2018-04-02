@@ -7,7 +7,7 @@ GET     /                           controllers.Application.index()
 
 # User
 GET     /login                      controllers.UserController.getLogin()
-GET     /signup                     controllers.UserController.getSignup()
+GET     /signup                     controllers.UserController.getSignUp()
 
 # Search
 POST    /search                     controllers.SearchController.search()

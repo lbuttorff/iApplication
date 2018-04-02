@@ -1,6 +1,7 @@
 package models;
 
 import io.ebean.*;
+import org.mindrot.jbcrypt.BCrypt;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 
@@ -24,6 +25,27 @@ public class User extends Model {
 
     //Static finder that will return a user based on the extend methods of Model
     public static final Finder<Long, User> find = new Finder<>(User.class);
+
+    public static User authenticate(String email, String pass){
+        User user = findByEmail(email);
+        if(user != null && BCrypt.checkpw(pass, user.getPasswordHash())){
+            return user;
+        }else{
+            return null;
+        }
+    }
+
+    public static User findByEmail(String email){
+        return find.query().where().eq("email", email).findUnique();
+    }
+
+    public User(String fName, String lName, String email, String pass, int t){
+        this.firstName = fName;
+        this.lastName = lName;
+        this.email = email;
+        this.passwordHash = BCrypt.hashpw(pass, BCrypt.gensalt());
+        this.type = t;
+    }
 
     public long getId() {
         return id;
@@ -71,5 +93,13 @@ public class User extends Model {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 }
