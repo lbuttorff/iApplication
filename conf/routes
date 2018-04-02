@@ -5,9 +5,11 @@
 # Home page
 GET     /                           controllers.Application.index()
 
-# User
+# User registration
 GET     /login                      controllers.UserController.getLogin()
 GET     /signup                     controllers.UserController.getSignUp()
+POST    /login                      controllers.UserController.login()
+POST    /signup                     controllers.UserController.signUp()
 
 # Search
 POST    /search                     controllers.SearchController.search()

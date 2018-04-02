@@ -13,10 +13,12 @@
         @header()
 
         <div class="container login">
-            <form>
+            <form method="post" action="/login">
+                @import helper._
+                @CSRF.formField
                 <h3>Log In</h3>
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
             </form>   
             <p class="mt-5 mb-3"><a href="#">Forgot your password?</a></p>

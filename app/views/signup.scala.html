@@ -13,13 +13,16 @@
         @header()
 
         <div class="container signup">
-            <h3>Sign Up</h3>  
+            <h3>Sign Up</h3>
+            <form method="post" action="@routes.UserController.signUp()">
+            @import helper._
+            @CSRF.formField
             <div class="row">  
                 <div class="col-md-6 form-group">
-                    <input type="text" id="inputFirstName" class="form-control" placeholder="First name" required autofocus>
-                    <input type="text" id="inputLastName" class="form-control" placeholder="Last name" required>
-                    <input type="number" id="inputAge" class="form-control" placeholder="Age" min="1" max="120" required>
-                    <input type="text" id="schoolLevel" class="form-control" placeholder="School level" required>
+                    <input type="text" name="firstName" id="inputFirstName" class="form-control" placeholder="First name" required autofocus>
+                    <input type="text" name="lastName" id="inputLastName" class="form-control" placeholder="Last name" required>
+                    <input type="number" name="age" id="inputAge" class="form-control" placeholder="Age" min="1" max="120" required>
+                    <input type="text" name="standing" id="schoolLevel" class="form-control" placeholder="School level" required>
                     <p style="text-align: left;">I would like to be a(n):</p>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="roleOption" id="mentorOption" value="mentorOption" checked>
@@ -31,16 +34,16 @@
                     </div>
                 </div>
                 <div class="col-md-6 form-group">
-                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required>
-                    <input type="email" id="confirmEmail" class="form-control" placeholder="Confirm your email" required>
-                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                    <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password" required>
+                    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required>
+                    <input type="email" name="confirmEmail" id="confirmEmail" class="form-control" placeholder="Confirm your email" required>
+                    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                    <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="Confirm your password" required>
                     
                 </div>
                 <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-top: 50px;">Sign up</button>
                 <p class="mt-5 mb-3 text-muted">Already a member? <a href="/login">Log in</a></p>
-            </div>   
-                
+            </div>
+            </form>
         </div>
 
         <!-- Inject footer so we only need it once -->
