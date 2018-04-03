@@ -36,10 +36,6 @@ input {
     text-align: left;
 }
 
-.results{
-    text-align: center;
-}
-
 .filter-bar {
     background-color: #f5f5f5;
 }
@@ -55,4 +51,33 @@ input {
     border-color: #6e6e6e;
     border-width: 1px 0 1px 0;
     margin: 10px 2px 10px 2px;
+}
+
+.search-result {
+    margin: 0 0 0 1em;
+    padding: 1em 0 1em 0;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: 0.5px;
+    border-color: #f5f5f5;
+}
+
+@media screen and (min-width: 768px){
+    .search-result-left-panel {
+        border-right-style: solid;
+        border-width: 0.5px;
+        border-color: #f5f5f5;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .search-result-left-panel {
+        border-bottom-style: solid;
+        border-width: 0.5px;
+        border-color: #f5f5f5;
+    }
+}
+
+.search-result-right-panel {
+    margin-left: 1em;
 }
