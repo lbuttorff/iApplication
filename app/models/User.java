@@ -23,9 +23,9 @@ public class User extends Model {
     @Formats.DateTime(pattern="dd/MM/yyyy")
     private Date joinDate;
     private int type;
-    //private String campus;
-    //private String standing;
-    //private String department;
+    private String campus;
+    private String standing;
+    private String department;
     //private String scores;
 
     //Static finder that will return a user based on the extend methods of Model
@@ -123,4 +123,27 @@ public class User extends Model {
         this.passwordHash = passwordHash;
     }
 */
+    public String getCampus() {
+        return campus;
+    }
+
+    public void setCampus(String campus) {
+        this.campus = campus;
+    }
+
+    public String getStanding() {
+        return standing;
+    }
+
+    public void setStanding(String standing) {
+        this.standing = standing;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
 }

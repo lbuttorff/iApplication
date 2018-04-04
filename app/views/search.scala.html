@@ -18,6 +18,8 @@
                 <div class="col-lg-3 filter-bar mt-4 p-3">
                     <h4 class="mb-4">Filter</h4>
                     <form id="filter-criteria">
+                        @import helper._
+                        @CSRF.formField
                         <ul class="list-group">
                             <!-- Department Options -->
                             <h6>Department</h6>
