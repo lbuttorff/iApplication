@@ -28,6 +28,8 @@ public class User extends Model {
     private String department;
     //private String scores;
 
+    //TODO: add services to the User model
+
     //Static finder that will return a user based on the extend methods of Model
     public static final Finder<Long, User> find = new Finder<>(User.class);
 
