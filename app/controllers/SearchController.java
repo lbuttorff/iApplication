@@ -207,7 +207,7 @@ public class SearchController extends Controller {
     }
 */
     @RequireCSRFCheck
-    public Result filter2(){
+    public Result filter(){
         //Get list of mentors from selected campus
         String term = formFactory.form().bindFromRequest().get("campus"); //TODO: update so that it uses the selected campus, not the default value
         List<User> users = User.find.query().where().eq("campus", campuses.indexOf(term)).and().eq("type", 1).findList(); //TODO: Confirm int value for "mentor" type
