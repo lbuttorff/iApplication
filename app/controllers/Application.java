@@ -1,5 +1,6 @@
 package controllers;
 
+import models.User;
 import play.filters.csrf.AddCSRFToken;
 import play.mvc.*;
 
@@ -9,7 +10,8 @@ public class Application extends Controller {
 
     @AddCSRFToken
     public Result index() {
-        return ok(main.render());
+        User u = User.getCurrentUser();
+        return ok(main.render(u));
     }
 
 

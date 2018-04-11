@@ -39,10 +39,12 @@ public class UserController extends Controller {
         if(u == null){
             return badRequest(login.render());
         }else {
-            return ok(main.render());
+            session().put("token", u.createToken());
+            return ok(main.render(u));
         }
     }
 
+    //TODO: Implement mentor features to registration
     public Result signUp(){
         DynamicForm requestData = formFactory.form().bindFromRequest();
         String firstName = requestData.get("firstName");
@@ -66,10 +68,11 @@ public class UserController extends Controller {
         if(User.findByEmail(email) != null){
             return badRequest(signup.render());
         }else{
-            //Create new user and save to database
+            //Create new user
             User u = new User(firstName,lastName,email,pass,type,age);
-            u.save();
+            //Create session token to track current user | also saves the new user
+            session().put("token", u.createToken());
+            return ok(main.render(u));
         }
-        return ok(main.render());
     }
 }
