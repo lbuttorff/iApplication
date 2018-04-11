@@ -68,14 +68,14 @@ public class SearchController extends Controller {
         String term = formFactory.form().bindFromRequest().get("campus"); //TODO: update so that it uses the selected campus, not the default value
         List<User> users = User.find.query().where().eq("campus", campuses.indexOf(term)).and().eq("type", 2).findList(); //TODO: Confirm int value for "mentor" type
         //TODO: Serialize and return List of users
-        return ok(search.render(term));
+        return ok(search.render(term, users));
     }
 
     /**
      * Gets most recent data from database and filters according to criteria from filter bar
      * @return
      */
-
+    //TODO: add protection for the default term being selected in the dropdown
     @RequireCSRFCheck
     public Result filter(){
         //Get list of mentors from selected campus
