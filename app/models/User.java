@@ -68,8 +68,11 @@ public class User extends Model {
 
     public static User getCurrentUser(){
         String token = Http.Context.current().session().get("token");
-        User user = find.query().where().eq("authToken", token).findUnique();
-        return user;
+        List<User> possibles = find.query().where().eq("authToken", token).findList();
+        if(possibles.size() != 1){
+            return null;
+        }
+        return possibles.get(0);
     }
 
     /**
