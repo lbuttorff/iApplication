@@ -12,10 +12,32 @@ import views.html.signup;
 import views.html.userprofile;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class UserController extends Controller {
 
     private final FormFactory formFactory;
+
+    //Enumeration of campuses for easier access later
+    private final ArrayList<String> campuses = new ArrayList<>(Arrays.asList(
+            "Abington","Altoona","Beaver","Behrend","Berks","Brandywine","DuBois","Fayette","Greater Allegheny",
+            "Harrisburg","Hazleton","Lehigh Valley","Mont Alto","New Kensington","Schuylkill","Shenango",
+            "University Park","Wilkes-Barre","Worthington Scranton","York"
+    ));
+
+    //Enumeration of academic status
+    private final ArrayList<String> statuses = new ArrayList<>(Arrays.asList(
+            "Undergraduate Student","Masters Student","Ph.D. Student","Faculty Member"
+    ));
+
+    //Enumeration of departments
+    private final ArrayList<String> departments = new ArrayList<>(Arrays.asList(
+            "Agricultural Sciences","Arts and Architecture","Smeal College of Business","College of Communications",
+            "Earth and Mineral Sciences","Education","Engineering","Health and Human Development",
+            "Information Sciences and Technology","Dickinson Law","Penn State Law","The Liberal Arts",
+            "College of Medicine","College of Nursing","Eberly College of Science"
+    ));
 
     @Inject
     public UserController(final FormFactory formFactory){
@@ -40,7 +62,8 @@ public class UserController extends Controller {
         if(u == null){
             return badRequest(login.render());
         }else {
-            return ok(main.render());
+            session().put("token", u.createToken());
+            return ok(main.render(u));
         }
     }
 
@@ -58,20 +81,69 @@ public class UserController extends Controller {
         }
         //Set default type to applicant
         int type = 0;
+        int campus = -1;
+        int status = -1;
+        int department = -1;
+        ArrayList<Integer> services = new ArrayList<>();
         //Update type if the user selected mentor
         if(requestData.get("roleOption").equals("mentorOption")) {
             type = 1;
+            //Get campus
+            campus = campuses.indexOf(requestData.get("campusOption"));
+            //Get services
+            if(requestData.get("undergradAppHelp") != null){
+                services.add(1);
+            }else{
+                services.add(0);
+            }
+            if(requestData.get("gradAppHelp") != null){
+                services.add(1);
+            }else{
+                services.add(0);
+            }
+            if(requestData.get("essayHelp") != null){
+                services.add(1);
+            }else{
+                services.add(0);
+            }
+            if(requestData.get("interviewHelp") != null){
+                services.add(1);
+            }else{
+                services.add(0);
+            }
+            if(requestData.get("dormAptHelp") != null){
+                services.add(1);
+            }else{
+                services.add(0);
+            }
+            if(requestData.get("collegeVisit") != null){
+                services.add(1);
+            }else{
+                services.add(0);
+            }
+            // /Get academic status
+            status = statuses.indexOf(requestData.get("statusOption"));
+            //Get department
+            department = departments.indexOf(requestData.get("departmentOption"));
         }
         int age = Integer.parseInt(requestData.get("age"));
         //Check if user already exists based on email
         if(User.findByEmail(email) != null){
             return badRequest(signup.render());
         }else{
-            //Create new user and save to database
-            User u = new User(firstName,lastName,email,pass,type,age);
-            u.save();
+            //Create new user
+            User u = new User(firstName,lastName,email,pass,type,age);;
+            //Add additional fields if necessary
+            if (type == 1){
+                u.setCampus(campus);
+                u.setDepartment(department);
+                u.setServices(services);;
+                u.setStanding(status);
+            }
+            //Create session token to track current user | also saves the new user
+            session().put("token", u.createToken());
+            return ok(main.render(u));
         }
-        return ok(main.render());
     }
 
     @AddCSRFToken

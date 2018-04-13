@@ -1,13 +1,17 @@
 package models;
 
 import io.ebean.*;
+import io.ebean.annotation.DbJson;
+import io.ebean.annotation.DbJsonType;
 import org.mindrot.jbcrypt.BCrypt;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
+import play.mvc.Http;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * User model class that extends the Ebean Model class for interaction directly with the database
@@ -22,6 +26,7 @@ public class User extends Model {
     @Constraints.Required
     @Column(unique = true)
     private String email;
+    private String authToken;
     @Constraints.Required
     private String passwordHash;
     private int age;
@@ -31,6 +36,7 @@ public class User extends Model {
     private int campus;
     private int standing;
     private int department;
+    @DbJson(storage= DbJsonType.VARCHAR)
     private List<Integer> services;
     //private String scores; //Still not sure how we want to implement this 20180406
 
@@ -61,6 +67,15 @@ public class User extends Model {
      */
     public static User findByEmail(String email){
         return find.query().where().eq("email", email).findUnique();
+    }
+
+    public static User getCurrentUser(){
+        String token = Http.Context.current().session().get("token");
+        List<User> possibles = find.query().where().eq("authToken", token).findList();
+        if(possibles.size() != 1){
+            return null;
+        }
+        return possibles.get(0);
     }
 
     /**
@@ -200,5 +215,19 @@ public class User extends Model {
 
     public void setServices(List<Integer> services) {
         this.services = services;
+    }
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
+    }
+
+    public String createToken() {
+        this.authToken = UUID.randomUUID().toString();
+        this.save();
+        return this.authToken;
     }
 }

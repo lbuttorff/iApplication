@@ -1,3 +1,4 @@
+@(user: User)
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -10,7 +11,6 @@
     <body>
         <!-- Inject the header so we only have to make it once -->
         @header()
-
         <div class="container">
             <img class="banner" src="@routes.Assets.at("images/welcome_photo.jpg")" width="100%">
             <div class="row">
