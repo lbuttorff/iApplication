@@ -15,5 +15,8 @@ POST    /signup                     controllers.UserController.signUp()
 POST    /search                     controllers.SearchController.search()
 POST    /filter                     controllers.SearchController.filter()
 
+# Profiles
+GET     /userprofile                controllers.UserController.getUserProfile()
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

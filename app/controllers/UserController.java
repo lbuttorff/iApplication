@@ -9,6 +9,7 @@ import play.mvc.Result;
 import views.html.login;
 import views.html.main;
 import views.html.signup;
+import views.html.userprofile;
 
 import javax.inject.Inject;
 
@@ -72,4 +73,8 @@ public class UserController extends Controller {
         }
         return ok(main.render());
     }
+
+    @AddCSRFToken
+    public Result getUserProfile() { return ok(userprofile.render()); }
+
 }
