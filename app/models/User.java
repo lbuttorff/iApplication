@@ -1,6 +1,8 @@
 package models;
 
 import io.ebean.*;
+import io.ebean.annotation.DbJson;
+import io.ebean.annotation.DbJsonType;
 import org.mindrot.jbcrypt.BCrypt;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
@@ -34,6 +36,7 @@ public class User extends Model {
     private int campus;
     private int standing;
     private int department;
+    @DbJson(storage= DbJsonType.VARCHAR)
     private List<Integer> services;
     //private String scores; //Still not sure how we want to implement this 20180406
 

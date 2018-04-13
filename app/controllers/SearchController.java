@@ -14,6 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static play.libs.Json.toJson;
+
 public class SearchController extends Controller {
 
     private final FormFactory formFactory;
@@ -66,9 +68,21 @@ public class SearchController extends Controller {
     @RequireCSRFCheck
     public Result search(){
         String term = formFactory.form().bindFromRequest().get("campus"); //TODO: update so that it uses the selected campus, not the default value
-        List<User> users = User.find.query().where().eq("campus", campuses.indexOf(term)).and().eq("type", 1).findList();
         //TODO: Serialize and return List of users
-        return ok(search.render(term, users));
+        return ok(search.render(term));
+    }
+
+    public Result searchResults(){
+        String term = formFactory.form().bindFromRequest().get("campus");
+        List<User> users;
+        if(term == null){
+            System.out.println(formFactory.form().bindFromRequest().rawData().toString());
+            users = User.find.all();
+        }else{
+            System.out.println(term);
+            users = User.find.query().where().eq("campus", campuses.indexOf(term)).and().eq("type", 1).findList();
+        }
+        return ok(toJson(users));
     }
 
     /**
@@ -200,6 +214,6 @@ public class SearchController extends Controller {
                 }
             }
         }
-        return ok(Json.toJson(users));
+        return ok(toJson(users));
     }
 }

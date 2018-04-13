@@ -90,32 +90,32 @@ public class UserController extends Controller {
             //Get campus
             campus = campuses.indexOf(requestData.get("campusOption"));
             //Get services
-            if(requestData.get("serviceOption").equals("undergradAppHelp")){
+            if(requestData.get("undergradAppHelp") != null){
                 services.add(1);
             }else{
                 services.add(0);
             }
-            if(requestData.get("serviceOption").equals("gradAppHelp")){
+            if(requestData.get("gradAppHelp") != null){
                 services.add(1);
             }else{
                 services.add(0);
             }
-            if(requestData.get("serviceOption").equals("essayHelp")){
+            if(requestData.get("essayHelp") != null){
                 services.add(1);
             }else{
                 services.add(0);
             }
-            if(requestData.get("serviceOption").equals("interviewHelp")){
+            if(requestData.get("interviewHelp") != null){
                 services.add(1);
             }else{
                 services.add(0);
             }
-            if(requestData.get("serviceOption").equals("dormAptHelp")){
+            if(requestData.get("dormAptHelp") != null){
                 services.add(1);
             }else{
                 services.add(0);
             }
-            if(requestData.get("serviceOption").equals("collegeVisit")){
+            if(requestData.get("collegeVisit") != null){
                 services.add(1);
             }else{
                 services.add(0);
