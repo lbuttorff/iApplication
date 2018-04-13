@@ -21,11 +21,14 @@ footer {
 }
 
 .signup {
-    text-align: center;
     width: 100%;
     max-width: 550px;
     margin: 0 auto;
     padding: 20px;
+}
+
+.signup h3 {
+    text-align: center;
 }
 
 input {

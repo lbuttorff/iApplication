@@ -66,7 +66,7 @@ public class SearchController extends Controller {
     @RequireCSRFCheck
     public Result search(){
         String term = formFactory.form().bindFromRequest().get("campus"); //TODO: update so that it uses the selected campus, not the default value
-        List<User> users = User.find.query().where().eq("campus", campuses.indexOf(term)).and().eq("type", 2).findList(); //TODO: Confirm int value for "mentor" type
+        List<User> users = User.find.query().where().eq("campus", campuses.indexOf(term)).and().eq("type", 1).findList();
         //TODO: Serialize and return List of users
         return ok(search.render(term, users));
     }
@@ -80,14 +80,14 @@ public class SearchController extends Controller {
     public Result filter(){
         //Get list of mentors from selected campus
         String term = formFactory.form().bindFromRequest().get("campus"); //TODO: update so that it uses the selected campus, not the default value
-        List<User> users = User.find.query().where().eq("campus", campuses.indexOf(term)).and().eq("type", 1).findList(); //TODO: Confirm int value for "mentor" type
+        List<User> users = User.find.query().where().eq("campus", campuses.indexOf(term)).and().eq("type", 1).findList();
 
         //Get Json data and determine filtering criteria
         Map<String, String[]> json = request().body().asFormUrlEncoded();
         if(json == null){
             return badRequest();
         }else{
-            int[] selectDepart = new int[16];
+            int[] selectDepart = new int[15];
             int[] selectServ = new int[6];
             int[] selectExp = new int[4];
             //Generate List of departments
@@ -135,9 +135,6 @@ public class SearchController extends Controller {
             }
             if(json.get("science")[0].equals("true")) {
                 selectDepart[14] = 1;
-            }
-            if(json.get("honors")[0].equals("true")) {
-                selectDepart[15] = 1;
             }
 
             //Services

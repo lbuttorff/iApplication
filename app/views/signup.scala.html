@@ -18,12 +18,15 @@
             @import helper._
             @CSRF.formField
             <div class="row">  
-                <div class="col-md-6 form-group">
+                <div class="col-md-12 form-group">
                     <input type="text" name="firstName" id="inputFirstName" class="form-control" placeholder="First name" required autofocus>
                     <input type="text" name="lastName" id="inputLastName" class="form-control" placeholder="Last name" required>
                     <input type="number" name="age" id="inputAge" class="form-control" placeholder="Age" min="1" max="120" required>
-                    <input type="text" name="standing" id="schoolLevel" class="form-control" placeholder="School level" required>
-                    <p style="text-align: left;">I would like to be a(n):</p>
+                    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required>
+                    <input type="email" name="confirmEmail" id="confirmEmail" class="form-control" placeholder="Confirm your email" required>
+                    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                    <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="Confirm your password" required>
+                    <h6>I would like to be a(n):</h6>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="roleOption" id="mentorOption" value="mentorOption" checked>
                         <label class="form-check-label" for="mentorOption">Mentor</label>
@@ -33,14 +36,95 @@
                         <label class="form-check-label" for="applicantOption">Applicant</label>
                     </div>
                 </div>
-                <div class="col-md-6 form-group">
-                    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required>
-                    <input type="email" name="confirmEmail" id="confirmEmail" class="form-control" placeholder="Confirm your email" required>
-                    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                    <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="Confirm your password" required>
-                    
+                <div class="col-md-12 form-group" id="mentorFields">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <h6>What is your Penn State campus?</h6>
+                            <select name="campusOption" id="campusOption" class="form-control mr-1">
+                                <option selected disabled>Select one</option>
+                                <option>Abington</option>
+                                <option>Altoona</option>
+                                <option>Beaver</option>
+                                <option>Behrend</option>
+                                <option>Berks</option>
+                                <option>Brandywine</option>
+                                <option>DuBois</option>
+                                <option>Fayette</option>
+                                <option>Greater Allegheny</option>
+                                <option>Harrisburg</option>
+                                <option>Hazleton</option>
+                                <option>Lehigh Valley</option>
+                                <option>Mont Alto</option>
+                                <option>New Kensington</option>
+                                <option>Schuylkill</option>
+                                <option>Shenango</option>
+                                <option>University Park</option>
+                                <option>Wilkes-Barre</option>
+                                <option>Worthington Scranton</option>
+                                <option>York</option>
+                            </select>
+                        </li>
+                        <li class="list-group-item">
+                            <h6>What service(s) would you like to provide?</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="serviceOption" id="undergradAppHelp" value="undergradAppHelp">
+                                <label class="form-check-label" for="undergradAppHelp">Undergraduate Application Help</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="serviceOption" id="gradAppHelp" value="gradAppHelp">
+                                <label class="form-check-label" for="gradAppHelp">Graduate Application Help</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="serviceOption" id="essayHelp" value="essayHelp">
+                                <label class="form-check-label" for="essayHelp">Essay Editing</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="serviceOption" id="interviewHelp" value="interviewHelp">
+                                <label class="form-check-label" for="interviewHelp">Interview Prep</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="serviceOption" id="dormAptHelp" value="dormAptHelp">
+                                <label class="form-check-label" for="dormAptHelp">Help Finding Dorms & Apartments</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="serviceOption" id="collegeVisit" value="collegeVisit">
+                                <label class="form-check-label" for="collegeVisit">College Visits</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <h6>What is your status at Penn State?</h6>
+                            <select name="statusOption" id="statusOption" class="form-control mr-1">
+                                <option selected disabled>Select one</option>
+                                <option>Undergraduate Student</option>
+                                <option>Masters Student</option>
+                                <option>Ph.D. Candidate</option>
+                                <option>Faculty Member</option>
+                            </select>
+                        </li>
+                        <li class="list-group-item">
+                            <h6>What department are you a part of?</h6>
+                            <select name="departmentOption" id="departmentOption" class="form-control mr-1">
+                                <option selected disabled>Select one</option>
+                                <option>Agricultural Sciences</option>
+                                <option>Arts and Architecture</option>
+                                <option>Smeal College of Business</option>
+                                <option>College of Communications</option>
+                                <option>Earth and Mineral Sciences</option>
+                                <option>Education</option>
+                                <option>Engineering</option>
+                                <option>Health and Human Development</option>
+                                <option>Information Sciences and Technology</option>
+                                <option>Dickinson Law</option>
+                                <option>Penn State Law</option>
+                                <option>The Liberal Arts</option>
+                                <option>College of Medicine</option>
+                                <option>College of Nursing</option>
+                                <option>Eberly College of Science</option>
+                            </select>
+                        </li>
+                    </ul>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-top: 50px;">Sign up</button>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
                 <p class="mt-5 mb-3 text-muted">Already a member? <a href="/login">Log in</a></p>
             </div>
             </form>
@@ -52,5 +136,6 @@
         <!-- Scripts at the end of body to make page loading a bit faster -->
         <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("bootstrap/js/bootstrap.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/signup.js")" type="text/javascript"></script>
     </body>
 </html>
