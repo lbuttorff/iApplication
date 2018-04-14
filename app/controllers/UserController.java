@@ -67,6 +67,11 @@ public class UserController extends Controller {
         }
     }
 
+    public Result logout(){
+        //TODO: end session
+        return ok(main.render(null));
+    }
+
     public Result signUp(){
         DynamicForm requestData = formFactory.form().bindFromRequest();
         String firstName = requestData.get("firstName");
@@ -147,6 +152,6 @@ public class UserController extends Controller {
     }
 
     @AddCSRFToken
-    public Result getUserProfile() { return ok(userprofile.render()); }
+    public Result getUserProfile() { return ok(userprofile.render(User.getCurrentUser())); }
 
 }

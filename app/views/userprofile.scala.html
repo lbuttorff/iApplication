@@ -1,3 +1,4 @@
+@(user: User)
 <!DOCTYPE HTML>
 <html lang="en">
     <head>
@@ -10,7 +11,7 @@
 
     <body>
         <!-- Inject the header so we only have to make it once -->
-        @header()
+        @header(user)
 
         <div class="container" style="max-width: 100px">
         <div class="justify-content-center row">

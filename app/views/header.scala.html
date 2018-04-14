@@ -1,3 +1,4 @@
+@(user: User)
 <div class="container">
     <div class="jumbotron">
         <h1>iApplication</h1>
@@ -11,7 +12,12 @@
                 <a class="nav-item nav-link active" href="/">Home</a>
                 <a class="nav-item nav-link" href="#">About</a>
                 <a class="nav-item nav-link" href="#">Features</a>
-                <a class="nav-item nav-link" href="/login">Login</a>
+                @if(user == null){
+                    <a class="nav-item nav-link" id="loginButton" href="/login">Login</a>
+                }else{
+                    <a class="nav-item nav-link" id="logoutButton" href="/logout">Logout</a>
+                    <a class="nav-item nav-link" id="profileButton" href="/userprofile">My Profile</a>
+                }
             </div>
         </div>
         <form class="form-inline" method="post" action="/search">

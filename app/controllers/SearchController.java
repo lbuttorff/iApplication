@@ -69,7 +69,7 @@ public class SearchController extends Controller {
     public Result search(){
         String term = formFactory.form().bindFromRequest().get("campus"); //TODO: update so that it uses the selected campus, not the default value
         //TODO: Serialize and return List of users
-        return ok(search.render(term));
+        return ok(search.render(term, User.getCurrentUser()));
     }
 
     public Result searchResults(){
