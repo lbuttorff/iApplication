@@ -68,7 +68,12 @@ public class UserController extends Controller {
     }
 
     public Result logout(){
-        //TODO: end session
+        User user = User.getCurrentUser();
+        if(user != null) {
+            user.setAuthToken("old");
+            user.save();
+        }
+        session().clear();
         return ok(main.render(null));
     }
 

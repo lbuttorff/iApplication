@@ -36,7 +36,7 @@ $('#filter-criteria').submit(function( event ) {
         faculty:document.getElementById("faculty").checked
     };
     //Test statement; this should not be uncommented during production use
-    console.log(json);
+    //console.log(json);
     //ajax GET request to SearchController.filter()
     $.ajax({
         url: "/filter",
@@ -73,11 +73,11 @@ function updateResults(data) {
         var rightPanel = document.createElement("div");
         rightPanel.classList.add("col-md-8");
         rightPanel.classList.add("search-result-right-panel");
-        var img = document.createElement("img");
+        /*var img = document.createElement("img");
         img.classList.add("rounded-circle");
-        //img.src = "@routes.Assets.at(\"images/small_placeholder.jpg\")";
+        img.src = "default-src";
         img.width = "100";
-        img.height = "100";
+        img.height = "100";*/
         var name = document.createElement("h6");
         name.innerText = user.firstName + " " + user.lastName;
         var rating = document.createElement("p");
@@ -100,7 +100,7 @@ function updateResults(data) {
         sendReq.classList.add("d-inline");
         sendReq.classList.add("m-2");
         sendReq.innerText = "Send Connection Request";
-        leftPanel.appendChild(img);
+        //leftPanel.appendChild(img);
         leftPanel.appendChild(name);
         leftPanel.appendChild(rating);
         rightPanel.appendChild(standing);
@@ -122,7 +122,7 @@ window.onload = function(){
         type: "GET",
         data: term,
         success: function(data){
-            console.log(data);
+            //console.log(data);
             updateResults(data);
         },
         error: function(response){

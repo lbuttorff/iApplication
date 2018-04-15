@@ -2,17 +2,14 @@ package controllers;
 
 import com.google.inject.Inject;
 import models.User;
+import org.apache.commons.lang3.ArrayUtils;
 import play.data.FormFactory;
 import play.filters.csrf.RequireCSRFCheck;
-import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.search;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static play.libs.Json.toJson;
 
@@ -67,8 +64,10 @@ public class SearchController extends Controller {
 
     @RequireCSRFCheck
     public Result search(){
-        String term = formFactory.form().bindFromRequest().get("campus"); //TODO: update so that it uses the selected campus, not the default value
-        //TODO: Serialize and return List of users
+        String term = formFactory.form().bindFromRequest().get("campus");
+        if(campuses.indexOf(term) < 0){
+            term = "All Campuses";
+        }
         return ok(search.render(term, User.getCurrentUser()));
     }
 
@@ -76,10 +75,8 @@ public class SearchController extends Controller {
         String term = formFactory.form().bindFromRequest().get("campus");
         List<User> users;
         if(term == null){
-            System.out.println(formFactory.form().bindFromRequest().rawData().toString());
             users = User.find.all();
         }else{
-            System.out.println(term);
             users = User.find.query().where().eq("campus", campuses.indexOf(term)).and().eq("type", 1).findList();
         }
         return ok(toJson(users));
@@ -94,7 +91,12 @@ public class SearchController extends Controller {
     public Result filter(){
         //Get list of mentors from selected campus
         String term = formFactory.form().bindFromRequest().get("campus"); //TODO: update so that it uses the selected campus, not the default value
-        List<User> users = User.find.query().where().eq("campus", campuses.indexOf(term)).and().eq("type", 1).findList();
+        List<User> users;
+        if(campuses.indexOf(term) < 0){
+            users = User.find.query().where().eq("type", 1).findList();
+        }else{
+            users = User.find.query().where().eq("campus", campuses.indexOf(term)).and().eq("type", 1).findList();
+        }
 
         //Get Json data and determine filtering criteria
         Map<String, String[]> json = request().body().asFormUrlEncoded();
@@ -185,35 +187,45 @@ public class SearchController extends Controller {
                 selectExp[3] = 1;
             }
 
+            boolean depart = false;
+            boolean exp = false;
+            boolean serv = false;
+            if(Arrays.asList(ArrayUtils.toObject(selectDepart)).contains(1)){
+                depart = true;
+            }
+            if(Arrays.asList(ArrayUtils.toObject(selectExp)).contains(1)){
+                exp = true;
+            }
+            if(Arrays.asList(ArrayUtils.toObject(selectServ)).contains(1)){
+                serv = true;
+            }
+
             //Parse results from campus query, compare to arrays, discard if something doesn't match
-            for(User user : users ) {
-                if (selectDepart[user.getDepartment()] == 0) {
+            List<User> loop = new ArrayList<>();
+            loop.addAll(users);
+            for(User user: loop) {
+                if (selectDepart[user.getDepartment()] == 0 && depart) {
                     users.remove(user);
-                } else if (selectExp[user.getStanding()] == 0) {
+                } else if (selectExp[user.getStanding()] == 0 && exp) {
                     users.remove(user);
                 } else {
-                    //Create temp array to do double level filtering
-                    int[] temp = new int[6];
-                    for (int s : user.getServices()) {
-                        //If the service exists, we add it to the temp array
-                        if (selectServ[s] == 1) {
-                            temp[s] = 1;
-                        }
-                    }
-                    //Loop through the temp array to see if there are any 1's
-                    for (int i = 0; i < temp.length; i++) {
-                        int t = temp[i];
-                        if (t == 1) {
-                            //Break the loop if the user has any of the services selected
-                            break;
-                        } else if (i == temp.length - 1) {
-                            //If no services match the selection and it is the last time through, we remove the user from the list.
-                            users.remove(user);
+                    if(serv) {
+                        //Loop through the array to see if there are any 1's
+                        for (int i = 0; i < selectServ.length; i++) {
+                            int s = selectServ[i];
+                            int t = user.getServices().get(i);
+                            if (s == 1 && t == 1) {
+                                //Break the loop if the user has any of the services selected
+                                break;
+                            } else if (i == selectServ.length - 1) {
+                                //If no services match the selection and it is the last time through, we remove the user from the list.
+                                users.remove(user);
+                            }
                         }
                     }
                 }
             }
+            return ok(toJson(users));
         }
-        return ok(toJson(users));
     }
 }
