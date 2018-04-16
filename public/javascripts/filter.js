@@ -120,7 +120,7 @@ window.onload = function(){
     var obj = {
         campus:term
     };
-    console.log(obj);
+    //console.log(obj);
     $.ajax({
         url: "/search/results",
         type: "GET",
