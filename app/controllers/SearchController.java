@@ -74,8 +74,8 @@ public class SearchController extends Controller {
     public Result searchResults(){
         String term = formFactory.form().bindFromRequest().get("campus");
         List<User> users;
-        if(term == null){
-            users = User.find.all();
+        if(term == null || term.equals("All Campuses")){
+            users = User.find.query().where().eq("type", 1).findList();
         }else{
             users = User.find.query().where().eq("campus", campuses.indexOf(term)).and().eq("type", 1).findList();
         }

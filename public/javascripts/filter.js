@@ -117,10 +117,14 @@ function updateResults(data) {
 window.onload = function(){
     var term = document.getElementById("term").innerText;
     term = term.substring(term.indexOf("'")+1,term.lastIndexOf("'"));
+    var obj = {
+        campus:term
+    };
+    console.log(obj);
     $.ajax({
         url: "/search/results",
         type: "GET",
-        data: term,
+        data: obj,
         success: function(data){
             //console.log(data);
             updateResults(data);
