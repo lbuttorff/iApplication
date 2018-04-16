@@ -46,12 +46,12 @@ public class UserController extends Controller {
 
     @AddCSRFToken
     public Result getLogin(){
-        return ok(login.render());
+        return ok(login.render(null));
     }
 
     @AddCSRFToken
     public Result getSignUp(){
-        return ok(signup.render());
+        return ok(signup.render(null));
     }
 
     public Result login(){
@@ -60,7 +60,7 @@ public class UserController extends Controller {
         String pass = requestData.get("password");
         User u = User.authenticate(email, pass);
         if(u == null){
-            return badRequest(login.render());
+            return badRequest(login.render("Error: Invalid email and/or password entered"));
         }else {
             session().put("token", u.createToken());
             return ok(main.render(u));
@@ -87,7 +87,7 @@ public class UserController extends Controller {
         String confPass = requestData.get("confirmPassword");
         //Check passwords and emails for matching
         if(!pass.equals(confPass) || !email.equals(confEmail)){
-            return badRequest(signup.render());
+            return badRequest(signup.render("Error: your passwords did not match"));
         }
         //Set default type to applicant
         int type = 0;
@@ -139,7 +139,7 @@ public class UserController extends Controller {
         int age = Integer.parseInt(requestData.get("age"));
         //Check if user already exists based on email
         if(User.findByEmail(email) != null){
-            return badRequest(signup.render());
+            return badRequest(signup.render("Error: email already belongs to an account."));
         }else{
             //Create new user
             User u = new User(firstName,lastName,email,pass,type,age);;

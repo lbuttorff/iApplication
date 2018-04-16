@@ -11,7 +11,10 @@ footer {
 .banner {
     margin: 0 0 50px 0;
 }
-
+#error {
+    text-align: center;
+    color: #cb0000;
+}
 .login {
     text-align: center;
     width: 100%;

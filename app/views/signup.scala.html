@@ -1,3 +1,4 @@
+@(error: String)
 <!DOCTYPE HTML>
 <html lang="en">
     <head>
@@ -13,6 +14,9 @@
         @header(null)
 
         <div class="container signup">
+            @if(error != null) {
+                <p id="error">@error</p>
+            }
             <h3>Sign Up</h3>
             <form method="post" action="/signup">
             @import helper._
