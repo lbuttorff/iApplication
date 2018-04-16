@@ -87,3 +87,9 @@ input {
 .search-result-right-panel {
     margin-left: 1em;
 }
+
+.join-button {
+    width: 100%;
+    max-width: 550px;
+    margin: 0 auto;
+}
