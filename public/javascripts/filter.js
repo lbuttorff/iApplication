@@ -55,7 +55,7 @@ $('#filter-criteria').submit(function( event ) {
 function updateResults(data) {
     var json = data;
     var resultsDiv = document.getElementById("resultsDiv");
-    var standings = ["Undergraduate Student","Masters Student","Ph.D. Student","Faculty Member"];
+    var standings = ["Undergraduate Student","Masters Student","Ph.D. Candidate","Faculty Member"];
     var departments = ["Agricultural Sciences","Arts and Architecture","Smeal College of Business",
         "College of Communications","Earth and Mineral Sciences","Education","Engineering",
         "Health and Human Development","Information Sciences and Technology","Dickinson Law","Penn State Law",

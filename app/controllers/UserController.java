@@ -28,7 +28,7 @@ public class UserController extends Controller {
 
     //Enumeration of academic status
     private final ArrayList<String> statuses = new ArrayList<>(Arrays.asList(
-            "Undergraduate Student","Masters Student","Ph.D. Student","Faculty Member"
+            "Undergraduate Student","Masters Student","Ph.D. Candidate","Faculty Member"
     ));
 
     //Enumeration of departments
