@@ -9,9 +9,8 @@ import play.data.validation.Constraints;
 import play.mvc.Http;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+
 
 /**
  * User model class that extends the Ebean Model class for interaction directly with the database
@@ -39,6 +38,27 @@ public class User extends Model {
     @DbJson(storage= DbJsonType.VARCHAR)
     private List<Integer> services;
     //private String scores; //Still not sure how we want to implement this 20180406
+
+    //Enumeration of campuses for easier access later
+    private final ArrayList<String> campuses = new ArrayList<>(Arrays.asList(
+            "Abington","Altoona","Beaver","Behrend","Berks","Brandywine","DuBois","Fayette","Greater Allegheny",
+            "Harrisburg","Hazleton","Lehigh Valley","Mont Alto","New Kensington","Schuylkill","Shenango",
+            "University Park","Wilkes-Barre","Worthington Scranton","York"
+    ));
+
+    //Enumeration of academic status
+    private final ArrayList<String> statuses = new ArrayList<>(Arrays.asList(
+            "Undergraduate Student","Masters Student","Ph.D. Candidate","Faculty Member"
+    ));
+
+    //Enumeration of departments
+    private final ArrayList<String> departments = new ArrayList<>(Arrays.asList(
+            "Agricultural Sciences","Arts and Architecture","Smeal College of Business","College of Communications",
+            "Earth and Mineral Sciences","Education","Engineering","Health and Human Development",
+            "Information Sciences and Technology","Dickinson Law","Penn State Law","The Liberal Arts",
+            "College of Medicine","College of Nursing","Eberly College of Science"
+    ));
+
 
     /**
      * Finder method that takes advantage of the Ebean Model class features in order to access data in the database
@@ -122,6 +142,19 @@ public class User extends Model {
         this.standing = s;
         this.department = d;
         this.services = services;
+    }
+
+    //Getters for profile
+    public String getCampusAsString(){
+        return campuses.get(this.campus);
+    }
+
+    public String getStandingAsString(){
+        return statuses.get(this.standing);
+    }
+
+    public String getDepartmentAsString(){
+        return departments.get(this.department);
     }
 
     //Standard Getters and Setters
