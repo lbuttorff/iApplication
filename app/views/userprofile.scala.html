@@ -13,24 +13,131 @@
         <!-- Inject the header so we only have to make it once -->
         @header(user)
 
-        <div class="container" style="max-width: 100px">
+        <!-- Content for viewing profile -->
+        <div class="container" id="view-profile" style="max-width: 100px">
         <div class="justify-content-center row">
             <div class="col-md-3 search-result-left-panel" align="center">
                 <img class="rounded-circle" src="@routes.Assets.at("images/small_placeholder.jpg")" width="100" height="100">
                 <h6>@user.getFirstName() @user.getLastName()</h6>
                 <p>@user.getEmail()</p>
-                <p>Rating (under construction)</p>
+                <p>Rating: </p>
             </div>
             <div class="col-md-8 search-result-right-panel">
                 <h6>Campus: @user.getCampus()</h6> <!-- Pull campus in -->
                 <h6>Academic Standing: @user.getStanding()</h6> <!-- Pull academic standing in -->
                 <h6>Department: @user.getDepartment()</h6> <!-- Pull department in -->
                 <h6>Services: (under construction)</h6> <!-- Pull services provided in -->
-                <h6>Bio: (under construction)</h6> <!-- Pull biography in -->
+                <h6>Bio: </h6> <!-- Pull biography in -->
             </div>
+        </div>
+        <div class="row">
+            <button type="button" id="editButton" class="btn btn-lg btn-primary">Edit Profile</button>
         </div>
         </div>
 
+        <!-- Content for editing the profile -->
+        <div class="container" id="edit-profile" style="max-width: 100px">
+            <div class="justify-content-center row">
+                <div class="form-group">
+                    <img class="rounded-circle" src="@routes.Assets.at("images/small_placeholder.jpg")" width="100" height="100">
+                    <input type="text" name="firstName" id="inputFirstName" class="form-control" placeholder="First name" autofocus>
+                    <input type="text" name="lastName" id="inputLastName" class="form-control" placeholder="Last name">
+                    <input type="number" name="age" id="inputAge" class="form-control" placeholder="Age" min="1" max="120">
+                    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address">
+                    <textarea name="bio" id="inputBio" class="form-control" placeholder="Bio" rows="3"></textarea>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <h6>What is your Penn State campus?</h6>
+                            <select name="campusOption" id="campusOption" class="form-control mr-1">
+                                <option selected disabled>Select one</option>
+                                <option>Abington</option>
+                                <option>Altoona</option>
+                                <option>Beaver</option>
+                                <option>Behrend</option>
+                                <option>Berks</option>
+                                <option>Brandywine</option>
+                                <option>DuBois</option>
+                                <option>Fayette</option>
+                                <option>Greater Allegheny</option>
+                                <option>Harrisburg</option>
+                                <option>Hazleton</option>
+                                <option>Lehigh Valley</option>
+                                <option>Mont Alto</option>
+                                <option>New Kensington</option>
+                                <option>Schuylkill</option>
+                                <option>Shenango</option>
+                                <option>University Park</option>
+                                <option>Wilkes-Barre</option>
+                                <option>Worthington Scranton</option>
+                                <option>York</option>
+                            </select>
+                        </li>
+                        <li class="list-group-item">
+                            <h6>What service(s) would you like to provide?</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="undergradAppHelp" id="undergradAppHelp">
+                                <label class="form-check-label" for="undergradAppHelp">Undergraduate Application Help</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="gradAppHelp" id="gradAppHelp">
+                                <label class="form-check-label" for="gradAppHelp">Graduate Application Help</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="essayHelp" id="essayHelp">
+                                <label class="form-check-label" for="essayHelp">Essay Editing</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="interviewHelp" id="interviewHelp">
+                                <label class="form-check-label" for="interviewHelp">Interview Prep</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="dormAptHelp" id="dormAptHelp">
+                                <label class="form-check-label" for="dormAptHelp">Help Finding Dorms & Apartments</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="collegeVisit" id="collegeVisit">
+                                <label class="form-check-label" for="collegeVisit">College Visits</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <h6>What is your status at Penn State?</h6>
+                            <select name="statusOption" id="statusOption" class="form-control mr-1">
+                                <option selected disabled>Select one</option>
+                                <option>Undergraduate Student</option>
+                                <option>Masters Student</option>
+                                <option>Ph.D. Candidate</option>
+                                <option>Faculty Member</option>
+                            </select>
+                        </li>
+                        <li class="list-group-item">
+                            <h6>What department are you a part of?</h6>
+                            <select name="departmentOption" id="departmentOption" class="form-control mr-1">
+                                <option selected disabled>Select one</option>
+                                <option>Agricultural Sciences</option>
+                                <option>Arts and Architecture</option>
+                                <option>Smeal College of Business</option>
+                                <option>College of Communications</option>
+                                <option>Earth and Mineral Sciences</option>
+                                <option>Education</option>
+                                <option>Engineering</option>
+                                <option>Health and Human Development</option>
+                                <option>Information Sciences and Technology</option>
+                                <option>Dickinson Law</option>
+                                <option>Penn State Law</option>
+                                <option>The Liberal Arts</option>
+                                <option>College of Medicine</option>
+                                <option>College of Nursing</option>
+                                <option>Eberly College of Science</option>
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <button type="button" id="cancelButton" class="btn btn-md btn-danger d-inline">Cancel</button>
+                <button type="submit" id="saveButton" class="btn btn-lg btn-success d-inline">Save Changes</button>
+            </div>
+        </div>
         <!-- Inject footer so we only need it once -->
         @footer()
 

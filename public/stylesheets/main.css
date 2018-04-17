@@ -88,8 +88,19 @@ input {
     margin-left: 1em;
 }
 
-.join-button {
-    width: 100%;
+.welcome-info {
+    color: #FFFFFF;
+    text-align: center;
+    width: 50%;
     max-width: 550px;
-    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+.welcome-info a{
+    margin-top: 1em;
+    max-width: 550px;
 }
