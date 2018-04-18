@@ -48,7 +48,7 @@ public class User extends Model {
 
     //Enumeration of academic status
     private final ArrayList<String> statuses = new ArrayList<>(Arrays.asList(
-            "Undergraduate Student","Masters Student","Ph.D. Candidate","Faculty Member"
+            "Undergraduate Student","Masters Student","Ph.D. Candidate","Faculty Member","Alumni"
     ));
 
     //Enumeration of departments

@@ -105,7 +105,7 @@ public class SearchController extends Controller {
         }else{
             int[] selectDepart = new int[15];
             int[] selectServ = new int[6];
-            int[] selectExp = new int[4];
+            int[] selectExp = new int[5];
             //Generate List of departments
             if(json.get("agSciences")[0].equals("true")) {
                 selectDepart[0] = 1;
@@ -185,6 +185,9 @@ public class SearchController extends Controller {
             }
             if(json.get("faculty")[0].equals("true")) {
                 selectExp[3] = 1;
+            }
+            if(json.get("alumni")[0].equals("true")) {
+                selectExp[4] = 1;
             }
 
             boolean depart = false;

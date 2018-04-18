@@ -33,7 +33,8 @@ $('#filter-criteria').submit(function( event ) {
         undergrad:document.getElementById("undergrad").checked,
         masters:document.getElementById("masters").checked,
         phd:document.getElementById("phd").checked,
-        faculty:document.getElementById("faculty").checked
+        faculty:document.getElementById("faculty").checked,
+        alumni:document.getElemtById("alumni").checked
     };
     //Test statement; this should not be uncommented during production use
     //console.log(json);
@@ -55,7 +56,7 @@ $('#filter-criteria').submit(function( event ) {
 function updateResults(data) {
     var json = data;
     var resultsDiv = document.getElementById("resultsDiv");
-    var standings = ["Undergraduate Student","Masters Student","Ph.D. Candidate","Faculty Member"];
+    var standings = ["Undergraduate Student","Masters Student","Ph.D. Candidate","Faculty Member","Alumni"];
     var departments = ["Agricultural Sciences","Arts and Architecture","Smeal College of Business",
         "College of Communications","Earth and Mineral Sciences","Education","Engineering",
         "Health and Human Development","Information Sciences and Technology","Dickinson Law","Penn State Law",
