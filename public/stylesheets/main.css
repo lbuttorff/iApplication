@@ -48,7 +48,6 @@ input {
 
 .filter-bar li {
     height: 200px;
-    overflow-y: hidden;
     overflow-y: scroll;
 }
 

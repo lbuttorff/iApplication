@@ -6,19 +6,20 @@
 GET     /                           controllers.Application.index()
 
 # User registration
-GET     /login                      controllers.UserController.getLogin()
-GET     /signup                     controllers.UserController.getSignUp()
-GET    /logout                     controllers.UserController.logout()
-POST    /login                      controllers.UserController.login()
-POST    /signup                     controllers.UserController.signUp()
+GET     /login                      controllers.UserController.getLogin
+GET     /signup                     controllers.UserController.getSignUp
+GET     /logout                     controllers.UserController.logout
+POST    /login                      controllers.UserController.login
+POST    /signup                     controllers.UserController.signUp
 
 # Search
-GET     /search/results             controllers.SearchController.searchResults()
-POST    /search                     controllers.SearchController.search()
-POST    /filter                     controllers.SearchController.filter()
+GET     /search/results             controllers.SearchController.searchResults
+POST    /search                     controllers.SearchController.search
+POST    /filter                     controllers.SearchController.filter
 
 # Profiles
-GET     /userprofile                controllers.UserController.getUserProfile()
+GET     /userprofile                controllers.UserController.getUserProfile
+GET     /profile/:id                controllers.UserController.getProfilePage(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

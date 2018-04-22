@@ -4,12 +4,10 @@ import models.User;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.filters.csrf.AddCSRFToken;
+import play.filters.csrf.RequireCSRFCheck;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.login;
-import views.html.main;
-import views.html.signup;
-import views.html.userprofile;
+import views.html.*;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -18,26 +16,6 @@ import java.util.Arrays;
 public class UserController extends Controller {
 
     private final FormFactory formFactory;
-
-    //Enumeration of campuses for easier access later
-    private final ArrayList<String> campuses = new ArrayList<>(Arrays.asList(
-            "Abington","Altoona","Beaver","Behrend","Berks","Brandywine","DuBois","Fayette","Greater Allegheny",
-            "Harrisburg","Hazleton","Lehigh Valley","Mont Alto","New Kensington","Schuylkill","Shenango",
-            "University Park","Wilkes-Barre","Worthington Scranton","York"
-    ));
-
-    //Enumeration of academic status
-    private final ArrayList<String> statuses = new ArrayList<>(Arrays.asList(
-            "Undergraduate Student","Masters Student","Ph.D. Candidate","Faculty Member"
-    ));
-
-    //Enumeration of departments
-    private final ArrayList<String> departments = new ArrayList<>(Arrays.asList(
-            "Agricultural Sciences","Arts and Architecture","Smeal College of Business","College of Communications",
-            "Earth and Mineral Sciences","Education","Engineering","Health and Human Development",
-            "Information Sciences and Technology","Dickinson Law","Penn State Law","The Liberal Arts",
-            "College of Medicine","College of Nursing","Eberly College of Science"
-    ));
 
     @Inject
     public UserController(final FormFactory formFactory){
@@ -99,7 +77,7 @@ public class UserController extends Controller {
         if(requestData.get("roleOption").equals("mentorOption")) {
             type = 1;
             //Get campus
-            campus = campuses.indexOf(requestData.get("campusOption"));
+            campus = User.CAMPUS_LIST.indexOf(requestData.get("campusOption"));
             //Get services
             if(requestData.get("undergradAppHelp") != null){
                 services.add(1);
@@ -132,9 +110,9 @@ public class UserController extends Controller {
                 services.add(0);
             }
             // /Get academic status
-            status = statuses.indexOf(requestData.get("statusOption"));
+            status = User.STATUS_LIST.indexOf(requestData.get("statusOption"));
             //Get department
-            department = departments.indexOf(requestData.get("departmentOption"));
+            department = User.DEPARTMENT_LIST.indexOf(requestData.get("departmentOption"));
         }
         int age = Integer.parseInt(requestData.get("age"));
         //Check if user already exists based on email
@@ -159,4 +137,11 @@ public class UserController extends Controller {
     @AddCSRFToken
     public Result getUserProfile() { return ok(userprofile.render(User.getCurrentUser())); }
 
+    public Result getProfilePage(long id){
+        User user = User.find.byId(id);
+        if(user == null){
+            return redirect(controllers.routes.UserController.getUserProfile());
+        }
+        return ok(profile.render(user, User.getCurrentUser()));
+    }
 }
