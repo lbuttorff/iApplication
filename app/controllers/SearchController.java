@@ -16,11 +16,6 @@ import static play.libs.Json.toJson;
 public class SearchController extends Controller {
 
     private final FormFactory formFactory;
-    private final ArrayList<String> campuses = new ArrayList<>(Arrays.asList(
-            "Abington","Altoona","Beaver","Behrend","Berks","Brandywine","DuBois","Fayette","Greater Allegheny",
-            "Harrisburg","Hazleton","Lehigh Valley","Mont Alto","New Kensington","Schuylkill","Shenango",
-            "University Park","Wilkes-Barre","Worthington Scranton","York"
-    ));
     //TODO: This is being left in to describe order of contents. We should update this at some point
     //Department name constants
 /*
@@ -65,7 +60,7 @@ public class SearchController extends Controller {
     @RequireCSRFCheck
     public Result search(){
         String term = formFactory.form().bindFromRequest().get("campus");
-        if(campuses.indexOf(term) < 0){
+        if(User.CAMPUS_LIST.indexOf(term) < 0){
             term = "All Campuses";
         }
         return ok(search.render(term, User.getCurrentUser()));
@@ -77,7 +72,7 @@ public class SearchController extends Controller {
         if(term == null || term.equals("All Campuses")){
             users = User.find.query().where().eq("type", 1).findList();
         }else{
-            users = User.find.query().where().eq("campus", campuses.indexOf(term)).and().eq("type", 1).findList();
+            users = User.find.query().where().eq("campus", User.CAMPUS_LIST.indexOf(term)).and().eq("type", 1).findList();
         }
         return ok(toJson(users));
     }
@@ -92,10 +87,10 @@ public class SearchController extends Controller {
         //Get list of mentors from selected campus
         String term = formFactory.form().bindFromRequest().get("campus"); //TODO: update so that it uses the selected campus, not the default value
         List<User> users;
-        if(campuses.indexOf(term) < 0){
+        if(User.CAMPUS_LIST.indexOf(term) < 0){
             users = User.find.query().where().eq("type", 1).findList();
         }else{
-            users = User.find.query().where().eq("campus", campuses.indexOf(term)).and().eq("type", 1).findList();
+            users = User.find.query().where().eq("campus", User.CAMPUS_LIST.indexOf(term)).and().eq("type", 1).findList();
         }
 
         //Get Json data and determine filtering criteria
@@ -204,8 +199,7 @@ public class SearchController extends Controller {
             }
 
             //Parse results from campus query, compare to arrays, discard if something doesn't match
-            List<User> loop = new ArrayList<>();
-            loop.addAll(users);
+            List<User> loop = new ArrayList<>(users);
             for(User user: loop) {
                 if (selectDepart[user.getDepartment()] == 0 && depart) {
                     users.remove(user);

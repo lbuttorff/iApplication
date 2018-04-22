@@ -34,7 +34,7 @@ $('#filter-criteria').submit(function( event ) {
         masters:document.getElementById("masters").checked,
         phd:document.getElementById("phd").checked,
         faculty:document.getElementById("faculty").checked,
-        alumni:document.getElemtById("alumni").checked
+        alumni:document.getElementById("alumni").checked
     };
     //Test statement; this should not be uncommented during production use
     //console.log(json);
@@ -62,6 +62,9 @@ function updateResults(data) {
         "Health and Human Development","Information Sciences and Technology","Dickinson Law","Penn State Law",
         "The Liberal Arts","College of Medicine","College of Nursing","Eberly College of Science"
     ];
+    var servicesList = ["Undergraduate Application Help","Graduate Application Help","Essay Editing","Interview Prep",
+        "Help Finding Dorms & Apartments", "College Visits"
+    ];
     for(var i=0;i<json.length;i++){
         var user = json[i];
         var resultDiv = document.createElement("div");
@@ -88,13 +91,22 @@ function updateResults(data) {
         var department = document.createElement("h6");
         department.innerText = "Department: "+departments[user.department];
         var services = document.createElement("h6");
-        services.innerText = "Services: Coming soon...";
-        var viewProf = document.createElement("button");
+        services.innerText = "Services: ";
+        for(var j=0;j<servicesList.length;j++){
+            if(user.services[j] === 1){
+                services.innerText += servicesList[j];
+            }
+            if(j+1 !== servicesList.length && user.services[j+1] === 1){
+                services.innerText += ", ";
+            }
+        }
+        var viewProf = document.createElement("a");
         viewProf.classList.add("btn");
         viewProf.classList.add("btn-secondary");
         viewProf.classList.add("d-inline");
         viewProf.classList.add("m-2");
         viewProf.innerText = "View Profile";
+        viewProf.href = "/profile/"+user.id;
         var sendReq = document.createElement("button");
         sendReq.classList.add("btn");
         sendReq.classList.add("btn-primary");

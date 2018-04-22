@@ -41,23 +41,28 @@ public class User extends Model {
     //private String scores; //Still not sure how we want to implement this 20180406
 
     //Enumeration of campuses for easier access later
-    private final ArrayList<String> campuses = new ArrayList<>(Arrays.asList(
+    public static final ArrayList<String> CAMPUS_LIST = new ArrayList<>(Arrays.asList(
             "Abington","Altoona","Beaver","Behrend","Berks","Brandywine","DuBois","Fayette","Greater Allegheny",
             "Harrisburg","Hazleton","Lehigh Valley","Mont Alto","New Kensington","Schuylkill","Shenango",
             "University Park","Wilkes-Barre","Worthington Scranton","York"
     ));
 
     //Enumeration of academic status
-    private final ArrayList<String> statuses = new ArrayList<>(Arrays.asList(
+    public static final ArrayList<String> STATUS_LIST = new ArrayList<>(Arrays.asList(
             "Undergraduate Student","Masters Student","Ph.D. Candidate","Faculty Member","Alumni"
     ));
 
     //Enumeration of departments
-    private final ArrayList<String> departments = new ArrayList<>(Arrays.asList(
+    public static final ArrayList<String> DEPARTMENT_LIST = new ArrayList<>(Arrays.asList(
             "Agricultural Sciences","Arts and Architecture","Smeal College of Business","College of Communications",
             "Earth and Mineral Sciences","Education","Engineering","Health and Human Development",
             "Information Sciences and Technology","Dickinson Law","Penn State Law","The Liberal Arts",
             "College of Medicine","College of Nursing","Eberly College of Science"
+    ));
+
+    public static final ArrayList<String> SERVICE_LIST = new ArrayList<>(Arrays.asList(
+            "Undergraduate Application Help", "Graduate Application Help","Essay Editing","Interview Prep",
+            "Help Finding Dorms & Apartments", "College Visits"
     ));
 
 
@@ -147,15 +152,15 @@ public class User extends Model {
 
     //Getters for profile
     public String getCampusAsString(){
-        return campuses.get(this.campus);
+        return CAMPUS_LIST.get(this.campus);
     }
 
     public String getStandingAsString(){
-        return statuses.get(this.standing);
+        return STATUS_LIST.get(this.standing);
     }
 
     public String getDepartmentAsString(){
-        return departments.get(this.department);
+        return DEPARTMENT_LIST.get(this.department);
     }
 
     //Standard Getters and Setters
@@ -215,7 +220,7 @@ public class User extends Model {
         this.type = type;
     }
 
-    public String getPasswordHash() {
+    private String getPasswordHash() {
         return passwordHash;
     }
 
