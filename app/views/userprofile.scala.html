@@ -40,108 +40,157 @@
 
         <!-- Content for editing the profile -->
         <div class="container" id="edit-profile" style="max-width: 100px">
-            <div class="justify-content-center row">
-                <div class="form-group">
-                    <img class="rounded-circle" src="@routes.Assets.at("images/small_placeholder.jpg")" width="100" height="100">
-                    <input type="text" name="firstName" id="inputFirstName" class="form-control" placeholder="First name" autofocus>
-                    <input type="text" name="lastName" id="inputLastName" class="form-control" placeholder="Last name">
-                    <input type="number" name="age" id="inputAge" class="form-control" placeholder="Age" min="1" max="120">
-                    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address">
-                    <textarea name="bio" id="inputBio" class="form-control" placeholder="Bio" rows="3"></textarea>
-                    @if(user.getType() == 1) {
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <h6>What is your Penn State campus?</h6>
-                                <select name="campusOption" id="campusOption" class="form-control mr-1">
-                                    <option selected disabled>Select one</option>
-                                    <option>Abington</option>
-                                    <option>Altoona</option>
-                                    <option>Beaver</option>
-                                    <option>Behrend</option>
-                                    <option>Berks</option>
-                                    <option>Brandywine</option>
-                                    <option>DuBois</option>
-                                    <option>Fayette</option>
-                                    <option>Greater Allegheny</option>
-                                    <option>Harrisburg</option>
-                                    <option>Hazleton</option>
-                                    <option>Lehigh Valley</option>
-                                    <option>Mont Alto</option>
-                                    <option>New Kensington</option>
-                                    <option>Schuylkill</option>
-                                    <option>Shenango</option>
-                                    <option>University Park</option>
-                                    <option>Wilkes-Barre</option>
-                                    <option>Worthington Scranton</option>
-                                    <option>York</option>
-                                </select>
-                            </li>
-                            <li class="list-group-item">
-                                <h6>What service(s) would you like to provide?</h6>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="undergradAppHelp" id="undergradAppHelp">
-                                    <label class="form-check-label" for="undergradAppHelp">Undergraduate Application Help</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="gradAppHelp" id="gradAppHelp">
-                                    <label class="form-check-label" for="gradAppHelp">Graduate Application Help</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="essayHelp" id="essayHelp">
-                                    <label class="form-check-label" for="essayHelp">Essay Editing</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="interviewHelp" id="interviewHelp">
-                                    <label class="form-check-label" for="interviewHelp">Interview Prep</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="dormAptHelp" id="dormAptHelp">
-                                    <label class="form-check-label" for="dormAptHelp">Help Finding Dorms & Apartments</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="collegeVisit" id="collegeVisit">
-                                    <label class="form-check-label" for="collegeVisit">College Visits</label>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <h6>What is your status at Penn State?</h6>
-                                <select name="statusOption" id="statusOption" class="form-control mr-1">
-                                    <option selected disabled>Select one</option>
-                                    <option>Undergraduate Student</option>
-                                    <option>Masters Student</option>
-                                    <option>Ph.D. Candidate</option>
-                                    <option>Faculty Member</option>
-                                </select>
-                            </li>
-                            <li class="list-group-item">
-                                <h6>What department are you a part of?</h6>
-                                <select name="departmentOption" id="departmentOption" class="form-control mr-1">
-                                    <option selected disabled>Select one</option>
-                                    <option>Agricultural Sciences</option>
-                                    <option>Arts and Architecture</option>
-                                    <option>Smeal College of Business</option>
-                                    <option>College of Communications</option>
-                                    <option>Earth and Mineral Sciences</option>
-                                    <option>Education</option>
-                                    <option>Engineering</option>
-                                    <option>Health and Human Development</option>
-                                    <option>Information Sciences and Technology</option>
-                                    <option>Dickinson Law</option>
-                                    <option>Penn State Law</option>
-                                    <option>The Liberal Arts</option>
-                                    <option>College of Medicine</option>
-                                    <option>College of Nursing</option>
-                                    <option>Eberly College of Science</option>
-                                </select>
-                            </li>
-                        </ul>
-                    }
+            <form method="post" action="/edit">
+                @import helper._
+                @CSRF.formField
+                <div class="justify-content-center row">
+                    <div class="form-group">
+                        <img class="rounded-circle" src="@routes.Assets.at("images/small_placeholder.jpg")" width="100" height="100">
+                        <input type="text" name="firstName" id="inputFirstName" class="form-control" @if(user.getFirstName() != null){value="user.getFirstName()"}else{value=""}>
+                        <input type="text" name="lastName" id="inputLastName" class="form-control" @if(user.getLastName() != null){value="user.getLastName()"}else{value=""}>
+                        <input type="number" name="age" id="inputAge" class="form-control" min="1" max="120" @if(user.getAge() != null){value="user.getAge()"}else{value="0">
+                        <input type="email" name="email" id="inputEmail" class="form-control" @if(user.getEmail() != null){value="user.getEmail()"}else{value=""}>
+                        <textarea name="bio" id="inputBio" class="form-control" placeholder="Bio" rows="3"></textarea>
+                        @if(user.getType() == 1) {
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <h6>What is your Penn State campus?</h6>
+                                    <select name="campusOption" id="campusOption" class="form-control mr-1">
+                                        @user.getCampus() match {
+                                            case 0 => <option selected>Abington</option>
+                                            case 1 => <option selected >Altoona</option>
+                                            case 2 => <option selected>Beaver</option>
+                                            case 3 => <option selected>Behrend</option>
+                                            case 4 => <option selected>Berks</option>
+                                            case 5 => <option selected>Brandywine</option>
+                                            case 6 => <option selected>DuBois</option>
+                                            case 7 => <option selected>Fayette</option>
+                                            case 8 => <option selected>Greater Allegheny</option>
+                                            case 9 => <option selected>Harrisburg</option>
+                                            case 10 => <option selected>Hazleton</option>
+                                            case 11 => <option selected>Lehigh Valley</option>
+                                            case 12 => <option selected>Mont Alto</option>
+                                            case 13 => <option selected>New Kensington</option>
+                                            case 14 => <option selected>Schuylkill</option>
+                                            case 15 => <option selected>Shenango</option>
+                                            case 16 => <option selected>University Park</option>
+                                            case 17 => <option selected>Wilkes-Barre</option>
+                                            case 18 => <option selected>Worthington Scranton</option>
+                                            case 19 => <option selected>York</option>
+                                        }
+                                        <option>Abington</option>
+                                        <option>Altoona</option>
+                                        <option>Beaver</option>
+                                        <option>Behrend</option>
+                                        <option>Berks</option>
+                                        <option>Brandywine</option>
+                                        <option>DuBois</option>
+                                        <option>Fayette</option>
+                                        <option>Greater Allegheny</option>
+                                        <option>Harrisburg</option>
+                                        <option>Hazleton</option>
+                                        <option>Lehigh Valley</option>
+                                        <option>Mont Alto</option>
+                                        <option>New Kensington</option>
+                                        <option>Schuylkill</option>
+                                        <option>Shenango</option>
+                                        <option>University Park</option>
+                                        <option>Wilkes-Barre</option>
+                                        <option>Worthington Scranton</option>
+                                        <option>York</option>
+                                    </select>
+                                </li>
+                                <li class="list-group-item">
+                                    <h6>What service(s) would you like to provide?</h6>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="undergradAppHelp" id="undergradAppHelp" @if(user.getServices().get(0) == 1){checked}>
+                                        <label class="form-check-label" for="undergradAppHelp">Undergraduate Application Help</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="gradAppHelp" id="gradAppHelp" @if(user.getServices().get(1) == 1){checked}>
+                                        <label class="form-check-label" for="gradAppHelp">Graduate Application Help</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="essayHelp" id="essayHelp" @if(user.getServices().get(2) == 1){checked}>
+                                        <label class="form-check-label" for="essayHelp">Essay Editing</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="interviewHelp" id="interviewHelp" @if(user.getServices().get(3) == 1){checked}>
+                                        <label class="form-check-label" for="interviewHelp">Interview Prep</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="dormAptHelp" id="dormAptHelp" @if(user.getServices().get(4) == 1){checked}>
+                                        <label class="form-check-label" for="dormAptHelp">Help Finding Dorms & Apartments</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="collegeVisit" id="collegeVisit" @if(user.getServices().get(5) == 1){checked}>
+                                        <label class="form-check-label" for="collegeVisit">College Visits</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <h6>What is your status at Penn State?</h6>
+                                    <select name="statusOption" id="statusOption" class="form-control mr-1">
+                                        @user.getStanding() match {
+                                            case 0 => <option selected>Undergraduate Student</option>
+                                            case 1 => <option selected>Master Student</option>
+                                            case 2 => <option selected>Ph.D. Candidate</option>
+                                            case 3 => <option selected>Faculty Member</option>
+                                            case 4 => <option selected>Alumni</option>
+                                        }
+                                        <option selected disabled>Select one</option>
+                                        <option>Undergraduate Student</option>
+                                        <option>Masters Student</option>
+                                        <option>Ph.D. Candidate</option>
+                                        <option>Faculty Member</option>
+                                        <option>Alumni</option>
+                                    </select>
+                                </li>
+                                <li class="list-group-item">
+                                    <h6>What department are you a part of?</h6>
+                                    <select name="departmentOption" id="departmentOption" class="form-control mr-1">
+                                        @user.getDepartment() match {
+                                            case 0 => <option selected>Agricultural Sciences</option>
+                                            case 1 => <option selected>Arts and Architecture</option>
+                                            case 2 => <option selected>Smeal College of Business</option>
+                                            case 3 => <option selected>College of Communications</option>
+                                            case 4 => <option selected>Earth and Mineral Sciences</option>
+                                            case 5 => <option selected>Education</option>
+                                            case 6 => <option selected>Engineering</option>
+                                            case 7 => <option selected>Health and Human Development</option>
+                                            case 8 => <option selected>Information Sciences and Technology</option>
+                                            case 9 => <option selected>Dickinson Law</option>
+                                            case 10 => <option selected>Penn State Law</option>
+                                            case 11 => <option selected>The Liberal Arts</option>
+                                            case 12 => <option selected>College of Medicine</option>
+                                            case 13 => <option selected>College of Nursing</option>
+                                            case 14 => <option selected>Eberly College of Science</option>
+                                        }
+                                        <option>Agricultural Sciences</option>
+                                        <option>Arts and Architecture</option>
+                                        <option>Smeal College of Business</option>
+                                        <option>College of Communications</option>
+                                        <option>Earth and Mineral Sciences</option>
+                                        <option>Education</option>
+                                        <option>Engineering</option>
+                                        <option>Health and Human Development</option>
+                                        <option>Information Sciences and Technology</option>
+                                        <option>Dickinson Law</option>
+                                        <option>Penn State Law</option>
+                                        <option>The Liberal Arts</option>
+                                        <option>College of Medicine</option>
+                                        <option>College of Nursing</option>
+                                        <option>Eberly College of Science</option>
+                                    </select>
+                                </li>
+                            </ul>
+                        }
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <button type="button" id="cancelButton" class="btn btn-md btn-danger d-inline">Cancel</button>
-                <button type="submit" id="saveButton" class="btn btn-lg btn-success d-inline">Save Changes</button>
-            </div>
+                <div class="row">
+                    <button type="button" id="cancelButton" class="btn btn-md btn-danger d-inline">Cancel</button>
+                    <button type="submit" id="saveButton" class="btn btn-lg btn-success d-inline">Save Changes</button>
+                </div>
+            </form>
         </div>
         <!-- Inject footer so we only need it once -->
         @footer()

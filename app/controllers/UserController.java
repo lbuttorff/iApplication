@@ -156,6 +156,58 @@ public class UserController extends Controller {
         }
     }
 
+    public Result editProfile() {
+        DynamicForm requestData = formFactory.form().bindFromRequest();
+        User u = User.getCurrentUser();
+        u.setFirstName(requestData.get("firstName"));
+        u.setLastName(requestData.get("lastName"));
+        u.setEmail(requestData.get("email"));
+        u.setBio(requestData.get("bio"));
+        ArrayList<Integer> services = new ArrayList<>();
+        //Update type if the user selected mentor
+        if(u.getType() == 1) {
+            //Get campus
+            u.setCampus(campuses.indexOf(requestData.get("campusOption")));
+            //Get services
+            if(requestData.get("undergradAppHelp") != null){
+                services.set(0, 1);
+            }else{
+                services.set(0, 0);
+            }
+            if(requestData.get("gradAppHelp") != null){
+                services.set(1, 1);
+            }else{
+                services.set(1, 0);
+            }
+            if(requestData.get("essayHelp") != null){
+                services.set(2, 1);
+            }else{
+                services.set(2, 0);
+            }
+            if(requestData.get("interviewHelp") != null){
+                services.set(3, 1);
+            }else{
+                services.set(3, 0);
+            }
+            if(requestData.get("dormAptHelp") != null){
+                services.set(4, 1);
+            }else{
+                services.set(4, 0);
+            }
+            if(requestData.get("collegeVisit") != null){
+                services.set(5, 1);
+            }else{
+                services.set(5, 0);
+            }
+            u.setServices(services)
+            // /Get academic status
+            u.setStanding(statuses.indexOf(requestData.get("statusOption")));
+            //Get department
+            u.setDepartment(departments.indexOf(requestData.get("departmentOption")));
+        }
+        return ok(userprofile.render(u));
+    }
+
     @AddCSRFToken
     public Result getUserProfile() { return ok(userprofile.render(User.getCurrentUser())); }
 

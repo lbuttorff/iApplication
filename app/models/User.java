@@ -37,6 +37,7 @@ public class User extends Model {
     private int department;
     @DbJson(storage= DbJsonType.VARCHAR)
     private List<Integer> services;
+    private String bio;
     //private String scores; //Still not sure how we want to implement this 20180406
 
     //Enumeration of campuses for easier access later
@@ -262,5 +263,13 @@ public class User extends Model {
         this.authToken = UUID.randomUUID().toString();
         this.save();
         return this.authToken;
+    }
+
+    public void setBio(String bio){
+        this.bio = bio;
+    }
+
+    public String getBio(){
+        return this.bio;
     }
 }

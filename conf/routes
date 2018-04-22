@@ -11,6 +11,7 @@ GET     /signup                     controllers.UserController.getSignUp()
 GET    /logout                     controllers.UserController.logout()
 POST    /login                      controllers.UserController.login()
 POST    /signup                     controllers.UserController.signUp()
+POST    /edit                       controllers.UserController.editProfile()
 
 # Search
 GET     /search/results             controllers.SearchController.searchResults()
