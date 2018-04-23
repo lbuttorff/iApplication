@@ -20,7 +20,7 @@ import java.util.*;
 public class User extends Model {
     @Id
     private long id;
-    private String imagePath;
+    private String image;
     private String firstName;
     private String lastName;
     @Constraints.Required
@@ -122,6 +122,7 @@ public class User extends Model {
         this.age = age;
         this.joinDate = new Date();
         this.type = t;
+        this.image = "default.jpg";
     }
 
     /**
@@ -149,6 +150,7 @@ public class User extends Model {
         this.standing = s;
         this.department = d;
         this.services = services;
+        this.image = "default.jpg";
     }
 
     //Getters for profile
@@ -173,12 +175,12 @@ public class User extends Model {
         this.id = id;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getImage() {
+        return image;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImage(String image) {
+        this.image= image;
     }
 
     public String getFirstName() {

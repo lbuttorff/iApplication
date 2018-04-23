@@ -77,11 +77,11 @@ function updateResults(data) {
         var rightPanel = document.createElement("div");
         rightPanel.classList.add("col-md-8");
         rightPanel.classList.add("search-result-right-panel");
-        /*var img = document.createElement("img");
+        var img = document.createElement("img");
         img.classList.add("rounded-circle");
-        img.src = "default-src";
+        img.src = "/assets/images/users/"+user.image;
         img.width = "100";
-        img.height = "100";*/
+        img.height = "100";
         var name = document.createElement("h6");
         name.innerText = user.firstName + " " + user.lastName;
         var rating = document.createElement("p");
@@ -113,7 +113,7 @@ function updateResults(data) {
         sendReq.classList.add("d-inline");
         sendReq.classList.add("m-2");
         sendReq.innerText = "Send Connection Request";
-        //leftPanel.appendChild(img);
+        leftPanel.appendChild(img);
         leftPanel.appendChild(name);
         leftPanel.appendChild(rating);
         rightPanel.appendChild(standing);

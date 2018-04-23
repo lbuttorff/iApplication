@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.routes;
 import models.User;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -12,6 +13,11 @@ import views.html.*;
 
 import javax.inject.Inject;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -136,17 +142,7 @@ public class UserController extends Controller {
         }
     }
 
-    public Result editProfile() {
-        //TODO: Fix file creation, the form is not correctly passing the file at this time
-        /*Http.MultipartFormData<File> body = request().body().asMultipartFormData();
-        System.out.println(body);
-        Http.MultipartFormData.FilePart<File> picture = body.getFile("picture");
-        if (picture != null) {
-            String fileName = picture.getFilename();
-            String contentType = picture.getContentType();
-            File file = picture.getFile();
-            System.out.println(file.getAbsolutePath());
-        }*/
+    public Result editProfile() throws IOException {
         DynamicForm requestData = formFactory.form().bindFromRequest();
         User u = User.getCurrentUser();
         String fName = requestData.get("firstName");
@@ -156,56 +152,108 @@ public class UserController extends Controller {
         String campus = requestData.get("campusOption");
         String status = requestData.get("statusOption");
         String department = requestData.get("departmentOption");
-        if(fName == null || lName == null || email == null || bio == null || campus == null ||
-                status == null || department == null || u == null){
-            return badRequest();
+        if(u == null){
+            return redirect(controllers.routes.UserController.getLogin());
         }
-        u.setFirstName(fName);
-        u.setLastName(lName);
-        u.setEmail(email);
-        u.setBio(bio);
+        Http.MultipartFormData<File> body = request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart<File> picture = body.getFile("picture");
+        File newFile = null;
+        String contentType = null;
+        if (picture != null) {
+            FileInputStream in = null;
+            FileOutputStream out = null;
+            try {
+                File file = picture.getFile();
+                contentType = picture.getContentType();
+                newFile = new File(System.getProperty("user.dir")+"/public/images/users/"+u.getId()+"."+
+                        contentType.substring(contentType.indexOf("/")+1));
+                if(!newFile.exists()){
+                    newFile.createNewFile();
+                }
+                //System.out.println("Content type = "+contentType.substring(contentType.indexOf("/")+1));
+                in = new FileInputStream(file);
+                //enter the file location in server
+                out = new FileOutputStream(newFile);
+
+                int c;
+                while ((c = in.read()) != -1) {
+                    out.write(c);
+                }
+            }finally {
+                if (in != null) {
+                    in.close();
+                }
+                if (out != null) {
+                    out.close();
+                }
+            }
+        } else{
+            System.out.println("Picture value is null");
+        }
+        if(newFile != null){
+            u.setImage(u.getId() +"."+ contentType.substring(contentType.indexOf("/")+1));
+        }
+        if(fName != null){
+            u.setFirstName(fName);
+        }
+        if(lName != null){
+            u.setLastName(lName);
+        }
+        if(email != null){
+            u.setEmail(email);
+        }
+        if(bio != null){
+            u.setBio(bio);
+        }
         ArrayList<Integer> services = new ArrayList<>();
         //Update type if the user selected mentor
         if(u.getType() == 1) {
             //Get campus
-            u.setCampus(User.CAMPUS_LIST.indexOf(campus));
+            if(campus != null){
+                u.setCampus(User.CAMPUS_LIST.indexOf(campus));
+            }
             //Get services
             if(requestData.get("undergradAppHelp") != null){
-                services.set(0, 1);
+                services.add(0, 1);
             }else{
-                services.set(0, 0);
+                services.add(0, 0);
             }
             if(requestData.get("gradAppHelp") != null){
-                services.set(1, 1);
+                services.add(1, 1);
             }else{
-                services.set(1, 0);
+                services.add(1, 0);
             }
             if(requestData.get("essayHelp") != null){
-                services.set(2, 1);
+                services.add(2, 1);
             }else{
-                services.set(2, 0);
+                services.add(2, 0);
             }
             if(requestData.get("interviewHelp") != null){
-                services.set(3, 1);
+                services.add(3, 1);
             }else{
-                services.set(3, 0);
+                services.add(3, 0);
             }
             if(requestData.get("dormAptHelp") != null){
-                services.set(4, 1);
+                services.add(4, 1);
             }else{
-                services.set(4, 0);
+                services.add(4, 0);
             }
             if(requestData.get("collegeVisit") != null){
-                services.set(5, 1);
+                services.add(5, 1);
             }else{
-                services.set(5, 0);
+                services.add(5, 0);
             }
             u.setServices(services);
             // /Get academic status
-            u.setStanding(User.STATUS_LIST.indexOf(status));
+            if(status != null){
+                u.setStanding(User.STATUS_LIST.indexOf(status));
+            }
             //Get department
-            u.setDepartment(User.DEPARTMENT_LIST.indexOf(department));
+            if(department != null){
+                u.setDepartment(User.DEPARTMENT_LIST.indexOf(department));
+            }
         }
+        u.save();
         return ok(userprofile.render(u));
     }
 
