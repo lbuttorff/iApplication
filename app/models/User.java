@@ -20,6 +20,7 @@ import java.util.*;
 public class User extends Model {
     @Id
     private long id;
+    private String imagePath;
     private String firstName;
     private String lastName;
     @Constraints.Required
@@ -168,8 +169,16 @@ public class User extends Model {
         return id;
     }
 
-    public void setId(long id) {
+    private void setId(long id) {
         this.id = id;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public String getFirstName() {

@@ -6,10 +6,12 @@ import play.data.FormFactory;
 import play.filters.csrf.AddCSRFToken;
 import play.filters.csrf.RequireCSRFCheck;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import views.html.*;
 
 import javax.inject.Inject;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -135,17 +137,38 @@ public class UserController extends Controller {
     }
 
     public Result editProfile() {
+        //TODO: Fix file creation, the form is not correctly passing the file at this time
+        /*Http.MultipartFormData<File> body = request().body().asMultipartFormData();
+        System.out.println(body);
+        Http.MultipartFormData.FilePart<File> picture = body.getFile("picture");
+        if (picture != null) {
+            String fileName = picture.getFilename();
+            String contentType = picture.getContentType();
+            File file = picture.getFile();
+            System.out.println(file.getAbsolutePath());
+        }*/
         DynamicForm requestData = formFactory.form().bindFromRequest();
         User u = User.getCurrentUser();
-        u.setFirstName(requestData.get("firstName"));
-        u.setLastName(requestData.get("lastName"));
-        u.setEmail(requestData.get("email"));
-        u.setBio(requestData.get("bio"));
+        String fName = requestData.get("firstName");
+        String lName = requestData.get("lastName");
+        String email = requestData.get("email");
+        String bio = requestData.get("bio");
+        String campus = requestData.get("campusOption");
+        String status = requestData.get("statusOption");
+        String department = requestData.get("departmentOption");
+        if(fName == null || lName == null || email == null || bio == null || campus == null ||
+                status == null || department == null || u == null){
+            return badRequest();
+        }
+        u.setFirstName(fName);
+        u.setLastName(lName);
+        u.setEmail(email);
+        u.setBio(bio);
         ArrayList<Integer> services = new ArrayList<>();
         //Update type if the user selected mentor
         if(u.getType() == 1) {
             //Get campus
-            u.setCampus(campuses.indexOf(requestData.get("campusOption")));
+            u.setCampus(User.CAMPUS_LIST.indexOf(campus));
             //Get services
             if(requestData.get("undergradAppHelp") != null){
                 services.set(0, 1);
@@ -177,11 +200,11 @@ public class UserController extends Controller {
             }else{
                 services.set(5, 0);
             }
-            u.setServices(services)
+            u.setServices(services);
             // /Get academic status
-            u.setStanding(statuses.indexOf(requestData.get("statusOption")));
+            u.setStanding(User.STATUS_LIST.indexOf(status));
             //Get department
-            u.setDepartment(departments.indexOf(requestData.get("departmentOption")));
+            u.setDepartment(User.DEPARTMENT_LIST.indexOf(department));
         }
         return ok(userprofile.render(u));
     }
