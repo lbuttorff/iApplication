@@ -20,6 +20,7 @@ POST    /filter                     controllers.SearchController.filter
 
 # Profiles
 GET     /userprofile                controllers.UserController.getUserProfile
+GET     /profile/:id                controllers.UserController.getProfilePage(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
