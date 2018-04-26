@@ -159,7 +159,7 @@ public class UserController extends Controller {
         Http.MultipartFormData.FilePart<File> picture = body.getFile("picture");
         File newFile = null;
         String contentType = null;
-        if (picture != null) {
+        if (picture != null && picture.getContentType().contains("image/")) {
             FileInputStream in = null;
             FileOutputStream out = null;
             try {
@@ -187,9 +187,9 @@ public class UserController extends Controller {
                     out.close();
                 }
             }
-        } else{
+        }/* else{
             System.out.println("Picture value is null");
-        }
+        }*/
         if(newFile != null){
             u.setImage(u.getId() +"."+ contentType.substring(contentType.indexOf("/")+1));
         }
