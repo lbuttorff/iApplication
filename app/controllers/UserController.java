@@ -155,7 +155,7 @@ public class UserController extends Controller {
         if(u == null){
             return redirect(controllers.routes.UserController.getLogin());
         }
-        Http.MultipartFormData<File> body = request().body().asMultipartFormData();
+        /*Http.MultipartFormData<File> body = request().body().asMultipartFormData();
         Http.MultipartFormData.FilePart<File> picture = body.getFile("picture");
         File newFile = null;
         String contentType = null;
@@ -187,12 +187,12 @@ public class UserController extends Controller {
                     out.close();
                 }
             }
-        }/* else{
+        } else{
             System.out.println("Picture value is null");
-        }*/
+        }
         if(newFile != null){
             u.setImage(u.getId() +"."+ contentType.substring(contentType.indexOf("/")+1));
-        }
+        }*/
         if(fName != null){
             u.setFirstName(fName);
         }

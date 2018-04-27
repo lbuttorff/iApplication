@@ -46,7 +46,7 @@
                 <div class="justify-content-center row">
                     <div class="form-group">
                         <img class="rounded-circle" src="@routes.Assets.at("images/users/"+user.getImage)" width="100" height="100">
-                        <input type="file" name="picture" id="picture" accept="image/png, image/jpeg, image/jpg">
+                        <!--<input type="file" name="picture" id="picture" accept="image/png, image/jpeg, image/jpg">-->
                         <input type="text" name="firstName" id="inputFirstName" class="form-control" @if(user.getFirstName != null){value="@user.getFirstName"}else{value=""}>
                         <input type="text" name="lastName" id="inputLastName" class="form-control" @if(user.getLastName != null){value="@user.getLastName"}else{value=""}>
                         <input type="number" name="age" id="inputAge" class="form-control" min="1" max="120" @if(user.getAge != null){value="@user.getAge"}else{value="0"}>
