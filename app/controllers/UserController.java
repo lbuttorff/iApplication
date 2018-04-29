@@ -267,4 +267,31 @@ public class UserController extends Controller {
         }
         return ok(profile.render(user, User.getCurrentUser()));
     }
+
+    public static void createDummyUsers() {
+        Integer[] user1Services = new Integer[] {1, 0, 1, 0, 1, 1};
+        Integer[] user2Services = new Integer[] {1, 0, 1, 0, 1, 1};
+        Integer[] user3Services = new Integer[] {1, 0, 0, 0, 1, 1};
+        Integer[] user4Services = new Integer[] {1, 0, 1, 0, 0, 1};
+
+        User user1 = new User("Mike","Jones","mike@email.com","pw",1,22,4,1,2,Arrays.asList(user1Services));
+        user1.setImage("1.jpg");
+        user1.setBio("Hi! My name is Mike and I would love to help you!");
+        user1.save();
+
+        User user2 = new User("Tim","Walker","tim@email.com","pw",1,24,5,3,3,Arrays.asList(user2Services));
+        user2.setImage("2.jpg");
+        user2.setBio("Hi! My name is Tim and I would love to help you!");
+        user2.save();
+
+        User user3 = new User("Laura","Irwin","laura@email.com","pw",1,27,6,4,4,Arrays.asList(user3Services));
+        user3.setImage("3.jpg");
+        user3.setBio("Hi! My name is Laura and I would love to help you!");
+        user3.save();
+
+        User user4 = new User("Susan","Smith","susan@email.com","pw",1,20,7,0,1,Arrays.asList(user4Services));
+        user4.setImage("4.jpg");
+        user4.setBio("Hi! My name is Susan and I would love to help you!");
+        user4.save();
+    }
 }

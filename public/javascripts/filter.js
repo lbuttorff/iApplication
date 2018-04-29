@@ -84,8 +84,6 @@ function updateResults(data) {
         img.height = "100";
         var name = document.createElement("h6");
         name.innerText = user.firstName + " " + user.lastName;
-        var rating = document.createElement("p");
-        rating.innerText = "Rating";
         var standing = document.createElement("h6");
         standing.innerText = "Academic Status: "+standings[user.standing];
         var department = document.createElement("h6");
@@ -115,7 +113,6 @@ function updateResults(data) {
         sendReq.innerText = "Send Connection Request";
         leftPanel.appendChild(img);
         leftPanel.appendChild(name);
-        leftPanel.appendChild(rating);
         rightPanel.appendChild(standing);
         rightPanel.appendChild(department);
         rightPanel.appendChild(services);

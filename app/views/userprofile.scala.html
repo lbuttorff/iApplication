@@ -15,12 +15,11 @@
 
         <!-- Content for viewing profile -->
         <div class="container" id="view-profile">
-        <div class="justify-content-center row">
+        <div class="justify-content-center row mt-4">
             <div class="col-md-3 search-result-left-panel" align="center">
-                <img class="rounded-circle" src="@routes.Assets.at("images/users/"+user.getImage)" width="100" height="100">
+                <img class="rounded-circle" src="@routes.Assets.at("images/users/default.jpg")" width="150" height="150">
                 <h6>@user.getFirstName @user.getLastName</h6>
                 <p>@user.getEmail</p>
-                <p>Rating: </p>
             </div>
             <div class="col-md-8 search-result-right-panel">
                 <!-- Only display if user is a mentor -->
@@ -30,7 +29,7 @@
                     <h6>Department: @user.getDepartmentAsString</h6> <!-- Pull department in -->
                     <h6>Services: (under construction)</h6> <!-- Pull services provided in -->
                 }
-                <h6>Bio: </h6> <!-- Pull biography in -->
+                <h6>Bio: @user.getBio</h6> <!-- Pull biography in -->
             </div>
         </div>
         <div class="row">
